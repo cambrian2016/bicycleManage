@@ -1,0 +1,37 @@
+.headerWrapper{
+
+}
+
+.headerTop{
+    height: 60px;
+    line-height: 60px;
+    padding: 0 20px;
+    text-align: right;
+}
+
+.logout{
+    margin-left:40px ;
+}
+
+.breadCrumb{
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    border-top: 1px solid #001529;
+}
+
+.breadCrumbTitle{
+    text-align: center;
+}
+
+.weather{
+    text-align: right;
+}
+
+.date{
+
+}
+
+.weatherDetail{
+
+}
