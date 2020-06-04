@@ -1,35 +1,19 @@
 import React, {Component} from "react";
 import {Col, Row} from "antd";
 import style from "./header.module.css"
-import Util from "../../util/util"
-import axios from "../../http/axios"
+import {connect} from "react-redux"
+import * as actionCreators from "./store/actionCreators"
 
 class Header extends Component {
 
     componentWillMount() {
-        this.setState({
-            userName: "河畔一角"
-        });
+        this.props.getUserName();
 
-        setInterval(() => {
-            let sysTime = Util.formatDate(new Date().getTime());
-            this.setState({
-                sysTime: sysTime
-            })
-        }, 100);
+        setInterval(this.props.getSystemTime, 1000);
     }
 
     componentDidMount() {
-        axios.jsonp({
-            url: "http://222.190.151.215:8093/njqxfxapp/queryWeather!m"
-        }).then((response) => {
-            if (response.result) {
-                let weather = response.weather;
-                console.log("weather  =  ", weather);
-                this.setState({weather: weather.weather + " " + weather.wd + weather.ws,
-                weatherImage: weather.img1});
-            }
-        });
+        this.props.getWeather();
     }
 
     render() {
@@ -37,7 +21,7 @@ class Header extends Component {
             <div className={style.headerWrapper}>
                 <Row className={style.headerTop}>
                     <Col span="24">
-                        <span>欢迎，{this.state.userName}</span>
+                        <span>欢迎，{this.props.userName}</span>
                         <a className={style.logout} href={"#"}>退出</a>
                     </Col>
                 </Row>
@@ -47,10 +31,10 @@ class Header extends Component {
                         首页
                     </Col>
                     <Col span="20" className={style.weather}>
-                        <span className={style.date}>{this.state.sysTime}</span>
-                        <img className={style.weatherImage} src={this.state.weatherImage}/>
+                        <span className={style.date}>{this.props.systemTime}</span>
+                        <img className={style.weatherImage} src={this.props.weatherImage}/>
                         <span className={style.weatherDetail}>
-                            {this.state.weather}
+                            {this.props.weather}
                         </span>
                     </Col>
                 </Row>
@@ -59,7 +43,27 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        userName: state.header.userName,
+        systemTime: state.header.systemTime,
+        weather: state.header.weather,
+        weatherImage: state.header.weatherImage
+    }
+};
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUserName() {
+            dispatch(actionCreators.getUserNameAction());
+        },
+        getSystemTime() {
+            dispatch(actionCreators.getSystemTimeAction());
+        },
+        getWeather() {
+            dispatch(actionCreators.getWeather());
+        }
+    };
+};
 
-
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
