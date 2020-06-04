@@ -1,12 +1,34 @@
 import React, {Component} from "react";
 import {Col, Row} from "antd";
 import style from "./header.module.css"
+import Util from "../../util/util"
+import axios from "../../http/axios"
 
 class Header extends Component {
 
     componentWillMount() {
         this.setState({
             userName: "河畔一角"
+        });
+
+        setInterval(() => {
+            let sysTime = Util.formatDate(new Date().getTime());
+            this.setState({
+                sysTime: sysTime
+            })
+        }, 100);
+    }
+
+    componentDidMount() {
+        axios.jsonp({
+            url: "http://222.190.151.215:8093/njqxfxapp/queryWeather!m"
+        }).then((response) => {
+            if (response.result) {
+                let weather = response.weather;
+                console.log("weather  =  ", weather);
+                this.setState({weather: weather.weather + " " + weather.wd + weather.ws,
+                weatherImage: weather.img1});
+            }
         });
     }
 
@@ -25,8 +47,11 @@ class Header extends Component {
                         首页
                     </Col>
                     <Col span="20" className={style.weather}>
-                        <span className={style.date}>2018-05-04</span>
-                        <span className={style.weatherDetail}>晴转多云</span>
+                        <span className={style.date}>{this.state.sysTime}</span>
+                        <img className={style.weatherImage} src={this.state.weatherImage}/>
+                        <span className={style.weatherDetail}>
+                            {this.state.weather}
+                        </span>
                     </Col>
                 </Row>
             </div>
