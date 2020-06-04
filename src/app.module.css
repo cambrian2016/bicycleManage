@@ -1,0 +1,26 @@
+.appWrapper{
+    display: flex;
+    height: 100vh;
+}
+
+.navLeftWrapper{
+    width: 15%;
+    min-width: 180px;
+    height: 100vh;
+    background: green;
+}
+
+.main{
+    flex: 1;
+    height: 100%;
+}
+
+.content{
+    position: relative;
+    padding: 20px;
+}
+
+
+
+
+
