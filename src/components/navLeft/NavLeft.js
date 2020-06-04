@@ -1,20 +1,17 @@
 import React, {Component} from "react";
 import style from "./navLeft.module.css"
-import menuList from "../../config/menuConfig"
 import {Menu} from 'antd';
 import Logo from "../../resource/assets/logo-ant.svg"
+import * as actionCreators from "./store/actionCreators";
+import {connect} from "react-redux";
 
 
 const SubMenu = Menu.SubMenu;
 
 class NavLeft extends Component {
 
-    componentWillMount() {
-        const menuTreeNode = this.renderMenu(menuList);
-
-        this.setState({
-            menuTreeNode: menuTreeNode
-        })
+    componentDidMount() {
+        this.props.getMenuList();
     }
 
     //菜单渲染
@@ -26,15 +23,18 @@ class NavLeft extends Component {
                         {this.renderMenu(item.children)}
                     </SubMenu>
                 )
+            } else if (item) {
+                return (
+                    <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>
+                )
             }
-            return (
-                <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>
-            )
         });
     }
 
 
     render() {
+        const menuTreeNode = this.renderMenu(this.props.menuList);
+
         return (
             <div className={style.navLeftWrapper}>
                 <div className={style.logo}>
@@ -43,15 +43,29 @@ class NavLeft extends Component {
                 </div>
 
                 <Menu theme={"dark"}>
-                    {this.state.menuTreeNode}
+                    {menuTreeNode}
                 </Menu>
             </div>
         );
     }
 }
 
-export default NavLeft;
 
+const mapStateToProps = (state) => {
+    return {
+        menuList: state.navLeft.menuList,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getMenuList() {
+            dispatch(actionCreators.getMenuList());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavLeft);
 
 
 

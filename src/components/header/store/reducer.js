@@ -4,7 +4,7 @@ import Util from "../../../util/util"
 const defaultState = {
     userName: "奥陶",
     systemTime: "2020-1-1 10:10:10",
-    weather: "晴天 无风",
+    weather: "",
     weatherImage: ""
 };
 

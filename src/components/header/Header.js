@@ -13,7 +13,10 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        this.props.getWeather();
+        //防止多次请求
+        if (this.props.weather === "") {
+            this.props.getWeather();
+        }
     }
 
     render() {

@@ -3,7 +3,7 @@ import {Col, Row} from "antd";
 import "antd/dist/antd.css"
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
-import NavLeft from "./components/navleft/NavLeft";
+import NavLeft from "./components/navLeft/NavLeft";
 import Home from "./pages/home/Home"
 import "./reset.css"
 import style from "./app.module.css"
