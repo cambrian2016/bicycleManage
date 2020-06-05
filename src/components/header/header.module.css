@@ -23,6 +23,18 @@
 
 .breadCrumbTitle{
     text-align: center;
+    font-size: 18px;
+    /*position: relative;*/
+}
+
+.breadCrumbTriangle{
+    position: absolute;
+    border-top: 10px solid #ffffff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    left: 71px;
+    top: 39px;
+    content: "";
 }
 
 .weather{

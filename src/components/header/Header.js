@@ -32,6 +32,7 @@ class Header extends Component {
                 <Row className={style.breadCrumb}>
                     <Col span="4" className={style.breadCrumbTitle}>
                         首页
+                        <div className={style.breadCrumbTriangle}/>
                     </Col>
                     <Col span="20" className={style.weather}>
                         <span className={style.date}>{this.props.systemTime}</span>
