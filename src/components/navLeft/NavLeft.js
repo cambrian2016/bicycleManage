@@ -4,7 +4,7 @@ import {Menu} from 'antd';
 import Logo from "../../resource/assets/logo-ant.svg"
 import * as actionCreators from "./store/actionCreators";
 import {connect} from "react-redux";
-
+import {NavLink} from "react-router-dom";
 
 const SubMenu = Menu.SubMenu;
 
@@ -25,11 +25,15 @@ class NavLeft extends Component {
                 )
             } else if (item) {
                 return (
-                    <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>
+                    <Menu.Item title={item.title} key={item.key}>
+                        <NavLink to={item.key}>
+                            {item.title}
+                        </NavLink>
+                    </Menu.Item>
                 )
             }
         });
-    }
+    };
 
 
     render() {
