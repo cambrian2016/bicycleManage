@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {HashRouter, Route, Switch} from "react-router-dom";
 import Main from "./Main"
 import Login from "./pages/login/Login"
-import Button from "./pages/ui/button/Button";
+import ButtonDemo from "./pages/ui/button/ButtonDemo";
 import NoMatch from "./pages/nomatch/NoMatch";
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
                     <Route path={"/"} render={() =>
                         <Main>
                             <Switch>
-                                <Route path={"/ui/buttons"} component={Button}/>
+                                <Route path={"/ui/buttons"} component={ButtonDemo}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Main>
