@@ -11,6 +11,7 @@ import MessagesDemo from "./pages/ui/messages/MessagesDemo";
 import TabsDemo from "./pages/ui/tabs/TabsDemo";
 import GalleryDemo from "./pages/ui/gallary/galleryDemo";
 import CarouselDemo from "./pages/ui/carousel/CarouselDemo";
+import LoginDemo from "./pages/form/login/LoginDemo";
 
 class App extends Component {
 
@@ -31,6 +32,8 @@ class App extends Component {
                                 <Route path={"/ui/tabs"} component={TabsDemo}/>
                                 <Route path={"/ui/gallery"} component={GalleryDemo}/>
                                 <Route path={"/ui/carousel"} component={CarouselDemo}/>
+                                <Route path={"/form/login"} component={LoginDemo}/>
+
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Main>
