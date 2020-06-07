@@ -10,11 +10,14 @@
 
 .main{
     flex: 1;
+
+    overflow: auto;
 }
 
 .content{
     padding: 20px;
     background: #f1f2f3;
+
 }
 
 
