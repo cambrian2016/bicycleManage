@@ -9,6 +9,8 @@ import LoadingsDemo from "./pages/ui/loadings/LoadingsDemo";
 import NotificationsDemo from "./pages/ui/notification/notificationsDemo";
 import MessagesDemo from "./pages/ui/messages/MessagesDemo";
 import TabsDemo from "./pages/ui/tabs/TabsDemo";
+import GalleryDemo from "./pages/ui/gallary/galleryDemo";
+import CarouselDemo from "./pages/ui/carousel/CarouselDemo";
 
 class App extends Component {
 
@@ -27,7 +29,8 @@ class App extends Component {
                                 <Route path={"/ui/notifications"} component={NotificationsDemo}/>
                                 <Route path={"/ui/messages"} component={MessagesDemo}/>
                                 <Route path={"/ui/tabs"} component={TabsDemo}/>
-
+                                <Route path={"/ui/gallery"} component={GalleryDemo}/>
+                                <Route path={"/ui/carousel"} component={CarouselDemo}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Main>
