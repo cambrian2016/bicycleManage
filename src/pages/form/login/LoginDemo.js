@@ -49,48 +49,6 @@ class LoginDemo extends Component {
 
         return (
             <div>
-                {/*<Card className={style.card} title={"Form表单"}>*/}
-                {/*    <Form*/}
-                {/*        name={"basic"}*/}
-                {/*        initialValues={{remember: true}}*/}
-                {/*    >*/}
-                {/*        <Form.Item*/}
-                {/*            label={"用户名"}*/}
-                {/*            name={"username"}*/}
-                {/*            rules={[*/}
-                {/*                {*/}
-                {/*                    required: true,*/}
-                {/*                    message: "必须输入用户名"*/}
-                {/*                }*/}
-                {/*            ]}*/}
-                {/*        >*/}
-                {/*            <Input/>*/}
-                {/*        </Form.Item>*/}
-
-                {/*        <Form.Item*/}
-                {/*            label={"密  码"}*/}
-                {/*            name={"password"}*/}
-                {/*            rules={[*/}
-                {/*                {*/}
-                {/*                    required:true,*/}
-                {/*                    message:"一定要输入密码"*/}
-                {/*                }*/}
-                {/*            ]}*/}
-                {/*        >*/}
-                {/*            <Input/>*/}
-                {/*        </Form.Item>*/}
-
-                {/*        <Form.Item name={"remember"} valuePropName={"checked"}>*/}
-                {/*            <Checkbox>Remember me</Checkbox>*/}
-                {/*        </Form.Item>*/}
-
-                {/*        <Form.Item>*/}
-                {/*            <Button type={"primary"} htmlType={"submit"}>提交</Button>*/}
-                {/*        </Form.Item>*/}
-                {/*    </Form>*/}
-                {/*</Card>*/}
-
-
                 <Card>
                     <Form ref={this.formRef} onFinish={this.handleFinish}>
                         <Form.Item
@@ -126,6 +84,33 @@ class LoginDemo extends Component {
                                 <Option value={"female"}>female</Option>
                                 <Option value={"other"}>other</Option>
                             </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            noStyle
+                            shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
+                        >
+                            {
+                                ({getFieldValue})=>{
+                                    if (getFieldValue("gender")==="other"){
+                                        return (
+                                            <Form.Item
+                                                name={"customizeGender"}
+                                                label={"Customize Gender"}
+                                                rules={[
+                                                    {
+                                                        required:true,
+                                                    }
+                                                ]}
+                                            >
+                                                <Input/>
+                                            </Form.Item>
+                                        );
+                                    }else {
+                                        return null;
+                                    }
+                                }
+                            }
                         </Form.Item>
 
                         <Form.Item>
