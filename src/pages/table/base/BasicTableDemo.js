@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Card, Table} from "antd";
 import style from "./baseTable.module.css"
-import Axios from "axios";
+import Axios from "../../../http/axios";
 
 class BasicTableDemo extends Component {
 
@@ -10,7 +10,7 @@ class BasicTableDemo extends Component {
 
         this.state = {dataSource: null, dataSource2: null};
 
-        this.getTableList=this.getTableList.bind(this);
+        this.getTableList = this.getTableList.bind(this);
     }
 
     componentDidMount() {
@@ -71,18 +71,41 @@ class BasicTableDemo extends Component {
             dataSource: dataSource
         });
 
+        // this.getTableList();
     }
 
     componentWillMount() {
-        this.getTableList();
+        // Axios.get("/table/list")
+        //     .then((response) => {
+        //         if (response.status===200){
+        //             console.log("response.data.data.tableList =",response.data.data.tableList);
+        //             this.setState({dataSource2:response.data.data.tableList})
+        //         }
+        //     })
+        //     .catch((error)=>{
+        //         console.log("error =",error);
+        //     });
+
+        Axios.ajax({
+            url: "/tableList.json",
+            data: {
+                params: {
+                    page: 1,
+                }
+            }
+        }).then((response) => {
+            if (response.success) {
+                this.setState({dataSource2: response.data.tableList})
+            }
+        });
     }
 
     getTableList() {
-        Axios.get("https://www.easy-mock.com/mock/5ede15998f506f19c8299fd8/mockapi/table/list")
+        Axios.get("/table/list")
             .then((response) => {
-                console.log("response.status =",response.status);
-                if (response.status==="200"){
-                    this.setState({dataSource2:response.data.data.tableList})
+                console.log("response.status =", response.status);
+                if (response.status === "200") {
+                    this.setState({dataSource2: response.data.data.tableList})
                 }
             })
             .catch();
@@ -124,7 +147,7 @@ class BasicTableDemo extends Component {
             }
         ];
 
-        console.log("this.state.dataSource2 = "+this.state.dataSource2);
+        // console.log("this.state.dataSource2 = "+this.state.dataSource2);
 
         return (
             <div>

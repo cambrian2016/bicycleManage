@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "data": {
+    "tableList": [
+      {
+        "key": "0",
+        "userName": "寒武纪",
+        "sex": "male",
+        "state": "1",
+        "hobby": "篮球",
+        "birthday": "1991-01-01",
+        "address": "俄罗斯",
+        "time": "01:01"
+      },
+      {
+        "key": "1",
+        "userName": "奥陶纪",
+        "sex": "female",
+        "state": "1",
+        "hobby": "足球",
+        "birthday": "1991-01-02",
+        "address": "加拿大",
+        "time": "01:02"
+      },
+      {
+        "key": "2",
+        "userName": "志留纪",
+        "sex": "male",
+        "state": "0",
+        "hobby": "乒乓球",
+        "birthday": "1991-01-03",
+        "address": "中国",
+        "time": "01:03"
+      }
+    ]
+  },
+  "message": "返回成功"
+}

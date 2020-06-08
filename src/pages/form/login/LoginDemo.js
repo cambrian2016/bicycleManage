@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import style from './loginDemo.module.css'
 import {Card, Form, Input, Button, Checkbox, Select} from "antd";
-import {Option} from "antd/lib/mentions";
 
 class LoginDemo extends Component {
 
@@ -80,9 +79,9 @@ class LoginDemo extends Component {
                                 placeholder={"select a option andr change input text abow"}
                                 onChange={this.handleSelectChange}
                             >
-                                <Option value={"male"}>male</Option>
-                                <Option value={"female"}>female</Option>
-                                <Option value={"other"}>other</Option>
+                                <Select.Option value={"male"}>male</Select.Option>
+                                <Select.Option value={"female"}>female</Select.Option>
+                                <Select.Option value={"other"}>other</Select.Option>
                             </Select>
                         </Form.Item>
 
