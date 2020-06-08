@@ -13,6 +13,7 @@ import GalleryDemo from "./pages/ui/gallary/galleryDemo";
 import CarouselDemo from "./pages/ui/carousel/CarouselDemo";
 import LoginDemo from "./pages/form/login/LoginDemo";
 import RegisterDemo from "./pages/form/register/RegisterDemo";
+import BaseTableDemo from "./pages/table/base/BasicTableDemo"
 
 class App extends Component {
 
@@ -37,6 +38,7 @@ class App extends Component {
                                 <Route path={"/form/login"} component={LoginDemo}/>
                                 <Route path={"/form/reg"} component={RegisterDemo}/>
 
+                                <Route path={"/table/basic"} component={BaseTableDemo}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Main>
