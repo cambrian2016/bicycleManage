@@ -49,7 +49,7 @@ class LoginDemo extends Component {
 
         return (
             <div>
-                <Card>
+                <Card className={style.card}>
                     <Form ref={this.formRef} onFinish={this.handleFinish}>
                         <Form.Item
                             name={"note"}
