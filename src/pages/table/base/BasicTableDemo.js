@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, Table} from "antd";
+import {Card, Modal, Table} from "antd";
 import style from "./baseTable.module.css"
 import Axios from "../../../http/axios";
 
@@ -11,6 +11,7 @@ class BasicTableDemo extends Component {
         this.state = {dataSource: null, dataSource2: null};
 
         this.getTableList = this.getTableList.bind(this);
+        this.onSelectChange=this.onSelectChange.bind(this);
     }
 
     componentDidMount() {
@@ -94,12 +95,29 @@ class BasicTableDemo extends Component {
     getTableList() {
         Axios.get("/table/list")
             .then((response) => {
-                console.log("response.status =", response.status);
                 if (response.status === "200") {
                     this.setState({dataSource2: response.data.data.tableList})
                 }
             })
             .catch();
+    }
+
+    onRowClick(record,index){
+        let selectKey=[index+""];
+        Modal.info({
+            title:"当前点击的是",
+            content:"姓名："+record.userName+" 爱好："+record.hobby
+        });
+        this.setState({
+            selectedRowKeys:selectKey,
+            selectedItem:record
+        })
+    }
+
+    onSelectChange(selectedRowKeys){
+        this.setState({
+            selectedRowKeys
+        })
     }
 
     render() {
@@ -134,7 +152,7 @@ class BasicTableDemo extends Component {
                 title: "爱好",
                 dataIndex: "hobby",
                 render(hobby) {
-                    return "没日没夜玩 "+hobby;
+                    return "没日没夜玩 " + hobby;
                 }
             },
             {
@@ -151,7 +169,12 @@ class BasicTableDemo extends Component {
             }
         ];
 
-        // console.log("this.state.dataSource2 = "+this.state.dataSource2);
+        console.log("this.state.selectKey = ", this.state.selectedRowKeys);
+        const rowSelection = {
+            type: "radio",
+            selectedRowKeys:this.state.selectedRowKeys,
+            onChange:this.onSelectChange
+        };
 
         return (
             <div>
@@ -170,6 +193,26 @@ class BasicTableDemo extends Component {
                         columns={columns}
                         dataSource={this.state.dataSource2}
                         pagination={false}
+                    />
+                </Card>
+
+                <Card title={"表格_单选"} className={style.card}>
+                    <Table
+                        bordered
+                        rowSelection={ rowSelection}
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={false}
+                        onRow={(record,index) => {
+                            return {
+                                onClick: () => {
+                                   this.onRowClick(record,index);
+                                },
+                                onMouseEnter: () => {
+                                    console.log("onMouseEnter")
+                                }
+                            }
+                        }}
                     />
                 </Card>
             </div>

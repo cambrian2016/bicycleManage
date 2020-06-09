@@ -40,7 +40,6 @@ class GalleryDemo extends Component {
                 </Card>
             )
         );
-        console.log(imageCardList);
         return (
             <div>
                 <Row gutter={20}>

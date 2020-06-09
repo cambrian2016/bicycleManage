@@ -13,7 +13,7 @@ export const getSystemTimeAction = () => ({
 const getWeatherAction = (weatherJson) => ({
     type: actionTypes.GET_WEATHER,
     value: weatherJson
-})
+});
 
 export const getWeather = () => {
         return (dispatch) => {
@@ -22,7 +22,6 @@ export const getWeather = () => {
             }).then((response) => {
                 if (response.result) {
                     let weatherJson = response.weather;
-                    console.log(weatherJson);
                     dispatch(getWeatherAction(weatherJson));
                 }
             });
