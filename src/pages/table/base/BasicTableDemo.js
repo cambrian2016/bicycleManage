@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, Modal, Table} from "antd";
+import {Card, Modal, Table, Button, message} from "antd";
 import style from "./baseTable.module.css"
 import Axios from "../../../http/axios";
 
@@ -11,7 +11,8 @@ class BasicTableDemo extends Component {
         this.state = {dataSource: null, dataSource2: null};
 
         this.getTableList = this.getTableList.bind(this);
-        this.onSelectChange=this.onSelectChange.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -77,6 +78,24 @@ class BasicTableDemo extends Component {
 
     componentWillMount() {
 
+        this.getTableList();
+
+        // Axios.ajax({
+        //     url: "/tableList.json",
+        //     data: {
+        //         params: {
+        //             page: 1,
+        //         },
+        //         isShowLoading: true
+        //     }
+        // }).then((response) => {
+        //     if (response.success) {
+        //         this.setState({dataSource2: response.data.tableList})
+        //     }
+        // });
+    }
+
+    getTableList() {
         Axios.ajax({
             url: "/tableList.json",
             data: {
@@ -87,38 +106,50 @@ class BasicTableDemo extends Component {
             }
         }).then((response) => {
             if (response.success) {
-                this.setState({dataSource2: response.data.tableList})
+                this.setState({
+                    dataSource2: response.data.tableList,
+                    selectedRowKeys: [],
+                    selectedRows: null
+                })
             }
         });
     }
 
-    getTableList() {
-        Axios.get("/table/list")
-            .then((response) => {
-                if (response.status === "200") {
-                    this.setState({dataSource2: response.data.data.tableList})
-                }
-            })
-            .catch();
-    }
-
-    onRowClick(record,index){
-        let selectKey=[index+""];
+    onRowClick(record, index) {
+        let selectKey = [index + ""];
         Modal.info({
-            title:"当前点击的是",
-            content:"姓名："+record.userName+" 爱好："+record.hobby
+            title: "当前点击的是",
+            content: "姓名：" + record.userName + " 爱好：" + record.hobby
         });
         this.setState({
-            selectedRowKeys:selectKey,
-            selectedItem:record
+            selectedRowKeys: selectKey,
+            selectedItem: record,
         })
     }
 
-    onSelectChange(selectedRowKeys){
+    onSelectChange(selectedRowKeys) {
         this.setState({
             selectedRowKeys
         })
     }
+
+    handleDelete() {
+        let rows = this.state.selectedRows;
+
+        let ids = [];
+        rows.map((item) => {
+            ids.push(item.key);
+        });
+
+        Modal.confirm({
+            title: "删除提示",
+            content: "你确定要删除这些数据么" + ids.join(","),
+            onOk: () => {
+                message.success("删除成功");
+                this.getTableList();
+            }
+        });
+    };
 
     render() {
         let columns = [
@@ -170,10 +201,22 @@ class BasicTableDemo extends Component {
         ];
 
         console.log("this.state.selectKey = ", this.state.selectedRowKeys);
+
         const rowSelection = {
             type: "radio",
-            selectedRowKeys:this.state.selectedRowKeys,
-            onChange:this.onSelectChange
+            selectedRowKeys: this.state.selectedRowKeys,
+            onChange: this.onSelectChange
+        };
+
+        const rowCheckSelection = {
+            type: "checkbox",
+            selectedRowKeys: this.state.selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+                this.setState({
+                    selectedRowKeys: selectedRowKeys,
+                    selectedRows: selectedRows
+                })
+            }
         };
 
         return (
@@ -199,20 +242,45 @@ class BasicTableDemo extends Component {
                 <Card title={"表格_单选"} className={style.card}>
                     <Table
                         bordered
-                        rowSelection={ rowSelection}
+                        rowSelection={rowSelection}
                         columns={columns}
                         dataSource={this.state.dataSource2}
                         pagination={false}
-                        onRow={(record,index) => {
+                        onRow={(record, index) => {
                             return {
                                 onClick: () => {
-                                   this.onRowClick(record,index);
+                                    this.onRowClick(record, index);
                                 },
                                 onMouseEnter: () => {
                                     console.log("onMouseEnter")
                                 }
                             }
                         }}
+                    />
+                </Card>
+
+                <Card title={"表格_多选"} className={style.card}>
+                    <div>
+                        <Button onClick={this.handleDelete}>
+                            删除
+                        </Button>
+                    </div>
+                    <Table
+                        bordered
+                        rowSelection={rowCheckSelection}
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={false}
+                        // onRow={(record, index) => {
+                        //     return {
+                        //         onClick: () => {
+                        //             this.onRowClick(record, index);
+                        //         },
+                        //         onMouseEnter: () => {
+                        //             console.log("onMouseEnter")
+                        //         }
+                        //     }
+                        // }}
                     />
                 </Card>
             </div>
