@@ -9,7 +9,7 @@
         "state": "1",
         "hobby": "篮球",
         "birthday": "1991-01-01",
-        "address": "俄罗斯",
+        "address": "莫斯科",
         "time": "01:01"
       },
       {
@@ -19,7 +19,7 @@
         "state": "1",
         "hobby": "足球",
         "birthday": "1991-01-02",
-        "address": "加拿大",
+        "address": "渥太华",
         "time": "01:02"
       },
       {
@@ -29,7 +29,7 @@
         "state": "0",
         "hobby": "乒乓球",
         "birthday": "1991-01-03",
-        "address": "中国",
+        "address": "北京",
         "time": "01:03"
       }
     ]

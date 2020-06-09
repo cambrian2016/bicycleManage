@@ -75,23 +75,14 @@ class BasicTableDemo extends Component {
     }
 
     componentWillMount() {
-        // Axios.get("/table/list")
-        //     .then((response) => {
-        //         if (response.status===200){
-        //             console.log("response.data.data.tableList =",response.data.data.tableList);
-        //             this.setState({dataSource2:response.data.data.tableList})
-        //         }
-        //     })
-        //     .catch((error)=>{
-        //         console.log("error =",error);
-        //     });
 
         Axios.ajax({
             url: "/tableList.json",
             data: {
                 params: {
                     page: 1,
-                }
+                },
+                isShowLoading: true
             }
         }).then((response) => {
             if (response.success) {
@@ -123,15 +114,28 @@ class BasicTableDemo extends Component {
             },
             {
                 title: "性别",
-                dataIndex: "sex"
+                dataIndex: "sex",
+                render(sex) {
+                    return sex === "male" ? "男" : "女"
+                }
             },
             {
                 title: "状态",
-                dataIndex: "state"
+                dataIndex: "state",
+                render(state) {
+                    let config = {
+                        "0": "闲鱼",
+                        "1": "暴鲤龙"
+                    };
+                    return config[state];
+                }
             },
             {
                 title: "爱好",
-                dataIndex: "hobby"
+                dataIndex: "hobby",
+                render(hobby) {
+                    return "没日没夜玩 "+hobby;
+                }
             },
             {
                 title: "生日",
