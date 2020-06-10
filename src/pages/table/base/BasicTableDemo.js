@@ -2,8 +2,13 @@ import React, {Component} from "react";
 import {Card, Modal, Table, Button, message} from "antd";
 import style from "./baseTable.module.css"
 import Axios from "../../../http/axios";
+import util from "../../../util/util"
 
 class BasicTableDemo extends Component {
+
+    params={
+        page:1,
+    };
 
     constructor(props) {
         super(props);
@@ -73,34 +78,20 @@ class BasicTableDemo extends Component {
             dataSource: dataSource
         });
 
-        // this.getTableList();
     }
 
     componentWillMount() {
 
         this.getTableList();
-
-        // Axios.ajax({
-        //     url: "/tableList.json",
-        //     data: {
-        //         params: {
-        //             page: 1,
-        //         },
-        //         isShowLoading: true
-        //     }
-        // }).then((response) => {
-        //     if (response.success) {
-        //         this.setState({dataSource2: response.data.tableList})
-        //     }
-        // });
     }
 
     getTableList() {
+        let _this=this;
         Axios.ajax({
             url: "/tableList.json",
             data: {
                 params: {
-                    page: 1,
+                    page: this.params.page,
                 },
                 isShowLoading: true
             }
@@ -109,7 +100,13 @@ class BasicTableDemo extends Component {
                 this.setState({
                     dataSource2: response.data.tableList,
                     selectedRowKeys: [],
-                    selectedRows: null
+                    selectedRows: null,
+                    pagination: util.pagination(response.data, (current) => {
+                        //todo
+                        console.log(current);
+                        _this.params.page=current;
+                        this.getTableList();
+                    })
                 })
             }
         });
@@ -271,16 +268,15 @@ class BasicTableDemo extends Component {
                         columns={columns}
                         dataSource={this.state.dataSource2}
                         pagination={false}
-                        // onRow={(record, index) => {
-                        //     return {
-                        //         onClick: () => {
-                        //             this.onRowClick(record, index);
-                        //         },
-                        //         onMouseEnter: () => {
-                        //             console.log("onMouseEnter")
-                        //         }
-                        //     }
-                        // }}
+                    />
+                </Card>
+
+                <Card title={"表格_分页"} className={style.card}>
+                    <Table
+                        bordered
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={this.state.pagination}
                     />
                 </Card>
             </div>
