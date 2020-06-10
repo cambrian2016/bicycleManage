@@ -14,6 +14,7 @@ import CarouselDemo from "./pages/ui/carousel/CarouselDemo";
 import LoginDemo from "./pages/form/login/LoginDemo";
 import RegisterDemo from "./pages/form/register/RegisterDemo";
 import BaseTableDemo from "./pages/table/base/BasicTableDemo"
+import HighTableDemo from "./pages/table/high/HighTableDemo";
 
 class App extends Component {
 
@@ -39,6 +40,9 @@ class App extends Component {
                                 <Route path={"/form/reg"} component={RegisterDemo}/>
 
                                 <Route path={"/table/basic"} component={BaseTableDemo}/>
+                                <Route path={"/table/high"} component={HighTableDemo}/>
+
+
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Main>
