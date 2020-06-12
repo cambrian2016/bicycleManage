@@ -3,11 +3,12 @@ import {Card, Modal, Table, Button, message} from "antd";
 import style from "./baseTable.module.css"
 import Axios from "../../../http/axios";
 import util from "../../../util/util"
+import axios from "axios"
 
 class BasicTableDemo extends Component {
 
-    params={
-        page:1,
+    params = {
+        page: 1,
     };
 
     constructor(props) {
@@ -21,72 +22,82 @@ class BasicTableDemo extends Component {
     }
 
     componentDidMount() {
-        let dataSource = [
-            {
-                key: "0",
-                userName: "寒武纪",
-                sex: "male",
-                state: "1",
-                hobby: "篮球",
-                birthday: "1991-01-01",
-                address: "俄罗斯",
-                time: "01:01"
-            },
-            {
-                key: "1",
-                userName: "奥陶纪",
-                sex: "female",
-                state: "1",
-                hobby: "足球",
-                birthday: "1991-01-02",
-                address: "加拿大",
-                time: "01:02"
-            },
-            {
-                key: "2",
-                userName: "志留纪",
-                sex: "male",
-                state: "0",
-                hobby: "乒乓球",
-                birthday: "1991-01-03",
-                address: "中国",
-                time: "01:03"
-            },
-            {
-                key: "3",
-                userName: "泥盆纪",
-                sex: "male",
-                state: "1",
-                hobby: "羽毛球",
-                birthday: "1991-01-04",
-                address: "美国",
-                time: "02:01"
-            },
-            {
-                key: "4",
-                userName: "石炭纪",
-                sex: "male",
-                state: "1",
-                hobby: "篮球",
-                birthday: "1991-01-02",
-                address: "巴西",
-                time: "01:01"
-            },
-        ];
+        // let dataSource = [
+        //     {
+        //         key: "0",
+        //         userName: "寒武纪",
+        //         sex: "male",
+        //         state: "1",
+        //         hobby: "篮球",
+        //         birthday: "1991-01-01",
+        //         address: "俄罗斯",
+        //         time: "01:01"
+        //     },
+        //     {
+        //         key: "1",
+        //         userName: "奥陶纪",
+        //         sex: "female",
+        //         state: "1",
+        //         hobby: "足球",
+        //         birthday: "1991-01-02",
+        //         address: "加拿大",
+        //         time: "01:02"
+        //     },
+        //     {
+        //         key: "2",
+        //         userName: "志留纪",
+        //         sex: "male",
+        //         state: "0",
+        //         hobby: "乒乓球",
+        //         birthday: "1991-01-03",
+        //         address: "中国",
+        //         time: "01:03"
+        //     },
+        //     {
+        //         key: "3",
+        //         userName: "泥盆纪",
+        //         sex: "male",
+        //         state: "1",
+        //         hobby: "羽毛球",
+        //         birthday: "1991-01-04",
+        //         address: "美国",
+        //         time: "02:01"
+        //     },
+        //     {
+        //         key: "4",
+        //         userName: "石炭纪",
+        //         sex: "male",
+        //         state: "1",
+        //         hobby: "篮球",
+        //         birthday: "1991-01-02",
+        //         address: "巴西",
+        //         time: "01:01"
+        //     },
+        // ];
 
-        this.setState({
-            dataSource: dataSource
-        });
+        // this.setState({
+        //     dataSource: dataSource
+        // });
 
+        setInterval(() => {
+            return (
+                axios.get("/tableListMock").then((response) => {
+                    console.log("mock response  =  ", response);
+                    let dataSource = response.data.data.tableList;
+                    this.setState({
+                        dataSource: dataSource
+                    });
+                })
+            );
+        }, 1000);
     }
 
     componentWillMount() {
-
         this.getTableList();
     }
 
     getTableList() {
-        let _this=this;
+        let _this = this;
         Axios.ajax({
             url: "/tableList.json",
             data: {
@@ -104,7 +115,7 @@ class BasicTableDemo extends Component {
                     pagination: util.pagination(response.data, (current) => {
                         //todo
                         console.log(current);
-                        _this.params.page=current;
+                        _this.params.page = current;
                         this.getTableList();
                     })
                 })
@@ -170,8 +181,8 @@ class BasicTableDemo extends Component {
                 dataIndex: "state",
                 render(state) {
                     let config = {
-                        "0": "闲鱼",
-                        "1": "暴鲤龙"
+                        "0": "幼年期",
+                        "1": "成长期"
                     };
                     return config[state];
                 }
@@ -180,7 +191,7 @@ class BasicTableDemo extends Component {
                 title: "爱好",
                 dataIndex: "hobby",
                 render(hobby) {
-                    return "没日没夜玩 " + hobby;
+                    return hobby;
                 }
             },
             {
@@ -188,11 +199,11 @@ class BasicTableDemo extends Component {
                 dataIndex: "birthday"
             },
             {
-                title: "地址",
+                title: "家庭地址",
                 dataIndex: "address"
             },
             {
-                title: "早起时间",
+                title: "起床时间",
                 dataIndex: "time"
             }
         ];

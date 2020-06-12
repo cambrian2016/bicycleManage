@@ -16,6 +16,9 @@ import RegisterDemo from "./pages/form/register/RegisterDemo";
 import BaseTableDemo from "./pages/table/base/BasicTableDemo"
 import HighTableDemo from "./pages/table/high/HighTableDemo";
 
+import "./mock/tableListMock"
+
+
 class App extends Component {
 
     render() {
