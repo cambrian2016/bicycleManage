@@ -17,6 +17,8 @@ import BaseTableDemo from "./pages/table/base/BasicTableDemo"
 import HighTableDemo from "./pages/table/high/HighTableDemo";
 
 import "./mock/tableListMock"
+import "./mock/openCityMock"
+import City from "./pages/city/City";
 
 
 class App extends Component {
@@ -45,6 +47,7 @@ class App extends Component {
                                 <Route path={"/table/basic"} component={BaseTableDemo}/>
                                 <Route path={"/table/high"} component={HighTableDemo}/>
 
+                                <Route path={"/city"} component={City}/>
 
                                 <Route component={NoMatch}/>
                             </Switch>

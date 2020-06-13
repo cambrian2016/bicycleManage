@@ -112,7 +112,7 @@ class BasicTableDemo extends Component {
                     dataSource2: response.data.tableList,
                     selectedRowKeys: [],
                     selectedRows: null,
-                    pagination: util.pagination(response.data, (current) => {
+                    pagination: util.pagination(response.data.data, (current) => {
                         //todo
                         console.log(current);
                         _this.params.page = current;

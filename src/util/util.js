@@ -14,10 +14,10 @@ export default {
                 callback(current)
             },
             current:data.page,
-            pageSize:data.page_size,
-            total:data.total,
+            pageSize:data.pageSize,
+            total:data.totalCount,
             showTotal:()=>{
-                return "一共"+data.total+"条";
+                return "一共"+data.totalCount+"条";
             },
             // showQuickJumper:true
         };
